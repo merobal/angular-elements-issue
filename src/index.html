@@ -7,8 +7,27 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.0.3/custom-elements-es5-adapter.js"></script>
 </head>
 <body>
   <app-root></app-root>
+  <p>
+    Web Component: <my-custom-web-field ng-model="foo"></my-custom-web-field>
+    Outside model (from fooChange): <span id="foo"></span>
+    Outside model (from ngModelChange): <span id="baz"></span>
+  </p>
+  <script>
+    var element = document.getElementsByTagName('my-custom-web-field')[0];
+    element.addEventListener('fooChange', function(event) {
+      console.log('fooChange');
+      console.log(event.detail);
+      document.getElementById('foo').innerHTML = event.detail;
+    });
+    element.addEventListener('ngModelChange', function(event) {
+      console.log('ngModelChange');
+      console.log(event.detail);
+      document.getElementById('baz').innerHTML = event.detail;
+    });
+  </script>
 </body>
 </html>
